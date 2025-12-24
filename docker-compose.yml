@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  db:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_USER: mmuser
+      POSTGRES_PASSWORD: mmuser_password
+      POSTGRES_DB: mattermost
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  mattermost:
+    image: mattermost/mattermost-team-edition:9.4.0
+    depends_on:
+      - db
+    ports:
+      - "8065:8065"
+    environment:
+      # Configuración de base de datos
+      MM_SQLSETTINGS_DRIVERNAME: postgres
+      MM_SQLSETTINGS_DATASOURCE: postgres://mmuser:mmuser_password@db:5432/mattermost?sslmode=disable
+
+      # Configuración para desarrollo local
+      MM_SERVICESETTINGS_SITEURL: http://localhost:8065
+      MM_SERVICESETTINGS_LISTENADDRESS: "0.0.0.0:8065"
+    volumes:
+      - app_data:/mattermost/data
+
+volumes:
+  db_data:
+  app_data:
