@@ -1,13 +1,12 @@
 # Mattermost Local Development Setup
 
-Este proyecto configura Mattermost con Docker para desarrollo local.
+This project configures Mattermost with Docker for local development.
 
-## Requisitos
+## Requirements
 - Docker
 
-## Instalación
+## Install
 
-1. Clonar el repositorio.
+1. Clone the repository.
 ```bash
 git clone https://github.com/Drooliito/mattermost-local.git
-cd mattermost-local
